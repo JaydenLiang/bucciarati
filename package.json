@@ -1,0 +1,22 @@
+{
+  "name": "bucciarati",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaydenLiang/bucciarati.git"
+  },
+  "author": "jaydenliang, guardhao104",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JaydenLiang/bucciarati/issues"
+  },
+  "homepage": "https://github.com/JaydenLiang/bucciarati#readme",
+  "devDependencies": {
+    "wscat": "^4.0.0"
+  }
+}
