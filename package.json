@@ -18,5 +18,6 @@
   "homepage": "https://github.com/JaydenLiang/bucciarati#readme",
   "devDependencies": {
     "wscat": "^4.0.0"
-  }
+  },
+  "dependencies": {}
 }

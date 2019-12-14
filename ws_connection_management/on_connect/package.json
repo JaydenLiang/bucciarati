@@ -1,0 +1,15 @@
+{
+  "name": "bucciarati-on-connect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "jaydenliang, guardhao104",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^12.12.17",
+    "aws-sdk": "^2.590.0"
+  }
+}
