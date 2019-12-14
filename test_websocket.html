@@ -1,87 +1,87 @@
 <!DOCTYPE html>
-<meta charset="utf-8" />
-<title>WebSocket Test</title>
-<script language="javascript" type="text/javascript">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>WebSocket Test</title>
+    <style>
+    input[type=text] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    }
+    textarea {
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+    }
+    </style>
+    <script language="javascript" type="text/javascript">
+    function testWebSocket() {
+        const wsUri = document.getElementById("wsurl").value;
+        websocket = new WebSocket(wsUri);
+        websocket.onopen = function(evt) { onOpen(evt) };
+        websocket.onclose = function(evt) { onClose(evt) };
+        websocket.onmessage = function(evt) { onMessage(evt) };
+        websocket.onerror = function(evt) { onError(evt) };
+    }
 
-function init()
-{
-  output = document.getElementById("output");
-}
+    function onOpen(evt) {
+        writeToScreen('<span style="color: green;">CONNECTED</span>');
+    }
 
-function testWebSocket()
-{
-  const wsUri = document.getElementById("wsurl").value;
-  websocket = new WebSocket(wsUri);
-  websocket.onopen = function(evt) { onOpen(evt) };
-  websocket.onclose = function(evt) { onClose(evt) };
-  websocket.onmessage = function(evt) { onMessage(evt) };
-  websocket.onerror = function(evt) { onError(evt) };
-}
+    function onClose(evt) {
+        writeToScreen('<span style="color: green;">DISCONNECTED</span>');
+    }
 
-function onOpen(evt)
-{
-  writeToScreen("CONNECTED");
-}
+    function onMessage(evt) {
+        writeToScreen('<span style="color: blue;">MESSAGE: ' + evt.data+'</span>');
+    }
 
-function onClose(evt)
-{
-  writeToScreen("DISCONNECTED");
-}
+    function onError(evt) {
+        writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+    }
 
-function onMessage(evt)
-{
-  writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
-}
+    function doClose() {
+        websocket.close();
+    }
 
-function onError(evt)
-{
-  writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
-}
+    function doSend() {
+        const message = document.getElementById("message").value;
+        writeToScreen("SENT: " + message);
+        websocket.send(message);
+    }
 
-function doClose()
-{
-  websocket.close();
-}
+    function writeToScreen(message) {
+        var pre = document.createElement("p");
+        pre.style.wordWrap = "break-word";
+        pre.innerHTML = message;
+        document.getElementById("output").appendChild(pre);
+    }
 
-function doSend()
-{
-  const message = document.getElementById("message").value;
-  writeToScreen("SENT: " + message);
-  websocket.send(message);
-}
+    function clearOutput() {
+        document.getElementById("output").innerHTML = "";
+    }
+    </script>
+</head>
+<body>
+    <h2>WebSocket Test</h2>
 
-function writeToScreen(message)
-{
-  var pre = document.createElement("p");
-  pre.style.wordWrap = "break-word";
-  pre.innerHTML = message;
-  output.appendChild(pre);
-}
+    <div id="start">
+        <input id="wsurl" type="text" name="wsurl"/>
+        <button id="connect" type="button" onclick="testWebSocket()">Connect</button>
+        <button id="disconnect" type="button" onclick="doClose()">Disconnect</button>
+    </div>
 
-function clear()
-{
-  document.getElementById("output").innerHTML = "";
-}
+    <div id="run">
+        <textarea id="message" rows="6" cols="80"></textarea>
+        <button id="send" type="button" onclick="doSend()">Send</button>
+    </div>
 
-window.addEventListener("load", init, false);
+    <h3>Messages:</h3>
 
-</script>
+    <div id="output"></div>
 
-<h2>WebSocket Test</h2>
-
-<div id="start">
-  <input id="wsurl" type="text" name="wsurl"/>
-  <button id="connect" type="button" onclick="testWebSocket()">Connect</button>
-  <button id="disconnect" type="button" onclick="doClose()">Disconnect</button>
-</div>
-
-<div id="run">
-  <input id="message" type="text" name="message"/>
-  <button id="send" type="button" onclick="doSend()">Send</button>
-</div>
-
-<p>Messages:</p>
-
-<div id="output"></div>
-
-<button id="clear" type="button" onclick="clear()">Clear</button>
+    <button id="clear" type="button" onclick="clearOutput()">Clear</button>
+</body>
+</html>
